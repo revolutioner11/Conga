@@ -21,15 +21,9 @@
     <ClCompile Include="StudentLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="DoublyLinkedList.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StudentLine.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="DoublyLinkedList.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

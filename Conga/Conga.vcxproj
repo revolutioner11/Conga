@@ -115,12 +115,10 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="DoublyLinkedList.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StudentLine.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DoublyLinkedList.h" />
     <ClInclude Include="StudentLine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
