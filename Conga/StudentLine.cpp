@@ -1,51 +1,40 @@
 #include "StudentLine.h"
 
 
-DoublyLinkedList<T>::DoublyLinkedList()
+StudentLine::StudentLine()
 {
 
 }
 
-template<class T>
-DoublyLinkedList<T>::DoublyLinkedList(DoublyLinkedList const& OtherDLL)
+StudentLine::StudentLine(const StudentLine& Other)
 {
 }
 
-template<class T>
-DoublyLinkedList& DoublyLinkedList<T>::operator=(const DoublyLinkedList& OtherDLL)
+StudentLine& StudentLine::operator=(const StudentLine& Other)
 {
 	// TODO: insert return statement here
 }
 
-template<class T>
-DoublyLinkedList<T>::~DoublyLinkedList()
+StudentLine::~StudentLine()
 {
 }
 
-template<class T>
-void DoublyLinkedList<T>::Merge(DoublyLinkedList const& OtherDLL)
-{
-	return false;
-}
-
-template<class T>
-void DoublyLinkedList<T>::AddEnd(const T& Data)
+void StudentLine::Merge(const StudentLine & Other)
 {
 }
 
-template<class T>
-void DoublyLinkedList<T>::RemoveFirst()
+void StudentLine::AddEnd(const string& Name, const string& Uni)
 {
-	// TODO: insert return statement here
 }
 
-template<class T>
-void DoublyLinkedList<T>::RemoveLast()
+void StudentLine::RemoveFirst()
 {
-	// TODO: insert return statement here
 }
 
-template<class T>
-void DoublyLinkedList<T>::RemoveAt()
+void StudentLine::RemoveLast()
+{
+}
+
+void StudentLine::RemoveAt()
 {
 }

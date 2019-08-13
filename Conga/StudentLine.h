@@ -8,33 +8,34 @@ public:
 	struct Node
 	{
 	public:
-		string
+		string Name;
+		string Uni;
+
 		Node* pPrev;
 		Node* pNext;
 
-		Node(const T& Data, Node* pPrev = nullptr, Node* pNext = nullptr)
-			: Data(Data), pPrev(pPrev), pNext(pNext)
+		Node(const string& Name, const string& Uni, Node* pPrev = nullptr, Node* pNext = nullptr)
+			: Name(Name), Uni(Uni), pPrev(pPrev), pNext(pNext)
 		{
 		}
 	};
 
 public:
-	DoublyLinkedList();
-	DoublyLinkedList(DoublyLinkedList const& OtherDLL);
-	DoublyLinkedList& operator=(const DoublyLinkedList& OtherDLL);
-	~DoublyLinkedList();
+	StudentLine();
+	StudentLine(const StudentLine & Other);
+	StudentLine& operator=(const StudentLine& Other);
+	~StudentLine();
 
-	void Merge(DoublyLinkedList const& OtherDLL);
-	//void AddFront(const T& Data);
-	void AddEnd(const T& Data);				// This will be our APPEND
+	void Merge(const StudentLine& Other);
+	void AddEnd(const string& Name, const string& Uni);				// This will be our APPEND
 	void RemoveFirst();
 	void RemoveLast();
-	void RemoveAt();
+	void Remove(const string& Name, const string& Uni);
 
 
 
 private:
-	void Free()
+	void Free();
 
 private:
 	Node* pFirst;
