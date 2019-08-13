@@ -2,6 +2,8 @@
 
 #include <string>
 
+using namespace std;
+
 class StudentLine
 {
 public:
@@ -26,14 +28,13 @@ public:
 	StudentLine& operator=(const StudentLine& Other);
 	~StudentLine();
 
+	bool operator==(const StudentLine& Other) const;
+	bool operator!=(const StudentLine& Other) const;
 	void Merge(const StudentLine& Other);
 	void AddEnd(const string& Name, const string& Uni);				// This will be our APPEND
 	void RemoveFirst();
 	void RemoveLast();
 	void Remove(const string& Name, const string& Uni);
-
-
-
 private:
 	void Free();
 
