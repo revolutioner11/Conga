@@ -67,21 +67,38 @@ void StudentLine::AddEnd(const string& Name, const string& Uni)
 
 void StudentLine::RemoveFirst()
 {
-	Node* NewNode = new Node(Name, Uni, pLast);
-	pFirst->pPrev = NewNode;
-	pFirst = NewNode;
-	Length++;
+	Node* NewNode = pFirst;
+	pFirst->pNext->pPrev = nullptr;
+	pFirst = pFirst->pNext;
+	NewNode->Free();
 }
 
 void StudentLine::RemoveLast()
 {
-
+	Node* NewNode = pLast;
+	pLast->pPrev->pNext = nullptr;
+	pLast = pLast->pPrev;
+	NewNode->Free();
 }
 
-void StudentLine::Remove(const string& Name, const string& Uni)
+StudentLine StudentLine::Remove(const string& Name, const string& Uni)
 {
+	Node* pCurrent = pFirst;
+
+	size_t i = 1;
+	while (i <= Length)
+	{
+		if (pCurrent->Name == Name && pCurrent->Uni == Uni)
+		{
+
+		}
+
+
+		++i;
+	}
 }
 
 void StudentLine::Free()
 {
+
 }

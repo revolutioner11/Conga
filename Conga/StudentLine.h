@@ -12,13 +12,19 @@ public:
 	public:
 		string Name;
 		string Uni;
-
 		Node* pPrev;
 		Node* pNext;
 
 		Node(const string& Name, const string& Uni, Node* pPrev = nullptr, Node* pNext = nullptr)
 			: Name(Name), Uni(Uni), pPrev(pPrev), pNext(pNext)
 		{
+		}
+		void Free()
+		{
+			Name = nullptr;
+			Uni = nullptr;
+			pPrev = nullptr;
+			pNext = nullptr;
 		}
 	};
 
@@ -34,7 +40,7 @@ public:
 	void AddEnd(const string& Name, const string& Uni);				// This will be our APPEND
 	void RemoveFirst();
 	void RemoveLast();
-	void Remove(const string& Name, const string& Uni);
+	StudentLine Remove(const string& Name, const string& Uni);
 private:
 	void Free();
 
