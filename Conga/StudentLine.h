@@ -22,8 +22,8 @@ public:
 		}
 		void Free()
 		{
-			Name = nullptr;
-			Uni = nullptr;
+			Name.clear();
+			Uni.clear();
 			pPrev = nullptr;
 			pNext = nullptr;
 		}

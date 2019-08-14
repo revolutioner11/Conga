@@ -22,6 +22,8 @@ StudentLine& StudentLine::operator=(const StudentLine& Other)
 		Free();
 		Merge(Other);
 	}
+
+	return *this;
 }
 
 StudentLine::~StudentLine()
@@ -81,6 +83,16 @@ void StudentLine::Merge(const StudentLine& Other)
 
 void StudentLine::AddEnd(const string& Name, const string& Uni)
 {
+	if (Length == 0)
+	{
+		Node* NewNode = new Node(Name, Uni);
+		pFirst = NewNode;
+		pLast = NewNode;
+		Length++;
+
+		return;
+	}
+
 	if (isCompatable(pLast->Uni, Uni))
 	{
 		AddAfter(Name, Uni);
@@ -104,6 +116,7 @@ void StudentLine::RemoveFirst()
 		pFirst->Free();
 		pFirst = nullptr;
 		pLast = nullptr;
+		Length--;
 
 		return;
 	}
