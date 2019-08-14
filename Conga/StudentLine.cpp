@@ -71,6 +71,7 @@ void StudentLine::RemoveFirst()
 	pFirst->pNext->pPrev = nullptr;
 	pFirst = pFirst->pNext;
 	NewNode->Free();
+	Length--;
 }
 
 void StudentLine::RemoveLast()
@@ -79,26 +80,60 @@ void StudentLine::RemoveLast()
 	pLast->pPrev->pNext = nullptr;
 	pLast = pLast->pPrev;
 	NewNode->Free();
+	Length--;
 }
 
+// Must check if the returned and the given lines are null -> to be removed
 StudentLine StudentLine::Remove(const string& Name, const string& Uni)
 {
 	Node* pCurrent = pFirst;
-
+	StudentLine NewLine;
 	size_t i = 1;
 	while (i <= Length)
 	{
 		if (pCurrent->Name == Name && pCurrent->Uni == Uni)
 		{
+			if (i == 1)
+			{
+				RemoveFirst();
+				break;
+			}
 
+			if (i == Length)
+			{
+				RemoveLast();
+				break;
+			}
+
+			// Here we set the new Line
+			NewLine.pFirst = pCurrent->pNext;
+			NewLine.pLast = pLast;
+			NewLine.Length = Length - i;
+
+			// Here we set the old line
+			pLast = pCurrent->pPrev;
+			Length = i - 1;
+
+			// Here we remove the current and nullify its pointers
+			pCurrent->pPrev = nullptr;
+			pCurrent->pNext = nullptr;
+			pLast->pNext = nullptr;
+			NewLine.pFirst->pPrev = nullptr;
+			pCurrent->Free();
 		}
-
-
 		++i;
 	}
+
+	return NewLine;
 }
 
 void StudentLine::Free()
 {
+	while (Length != 0)
+	{
+		RemoveFirst();
+	}
 
+	pFirst = nullptr;
+	pLast = nullptr;
 }
