@@ -77,7 +77,6 @@ void StudentLine::Merge(const StudentLine& Other)
 	{
 		AddAfter(pCurrent->Name, pCurrent->Uni);
 		pCurrent = pCurrent->pNext;
-		Length++;
 	}
 }
 
@@ -85,11 +84,7 @@ void StudentLine::AddEnd(const string& Name, const string& Uni)
 {
 	if (Length == 0)
 	{
-		Node* NewNode = new Node(Name, Uni);
-		pFirst = NewNode;
-		pLast = NewNode;
-		Length++;
-
+		CreateFirstNode(Name, Uni);
 		return;
 	}
 
@@ -102,11 +97,6 @@ void StudentLine::AddEnd(const string& Name, const string& Uni)
 		cout << "Action Denied! Incompatible people!\n";
 	}
 }
-
-   //Node* NewNode = new Node(Name, Uni, pLast);
-  //pFirst->pPrev = NewNode;
- //pFirst = NewNode;
-//Length++;
 
 // Must check if the line is null -> to be removed
 void StudentLine::RemoveFirst()
@@ -186,6 +176,7 @@ StudentLine StudentLine::Remove(const string& Name, const string& Uni)
 			pCurrent->Free();
 		}
 		++i;
+		pCurrent = pCurrent->pNext;
 	}
 
 	return NewLine;
@@ -195,12 +186,13 @@ void StudentLine::Print() const
 {
 	if (Length == 0)	// should not happen!?
 	{
-		cout << "empty line";
+		cout << "empty line\n";
 		return;
 	}
 
 	Node* pCurrent = pFirst;
 
+	cout << "Line: ";
 	for (size_t i = 1; i <= Length; ++i)
 	{
 		cout << "(" << pCurrent->Name << ", " << pCurrent->Uni << ")";
@@ -208,6 +200,7 @@ void StudentLine::Print() const
 			cout << " - ";
 		pCurrent = pCurrent->pNext;
 	}
+	cout << endl;
 }
 
 void StudentLine::Free()
@@ -240,8 +233,30 @@ bool StudentLine::isCompatable(const string& FrontUni, const string& BackUni) co
 // because MERGE need only the first check
 void StudentLine::AddAfter(const string& Name, const string& Uni)
 {
+	if (Length == 0)
+	{
+		CreateFirstNode(Name, Uni);
+		return;
+	}
+
 	Node* NewNode = new Node(Name, Uni, pLast);
 	pLast->pNext = NewNode;
 	pLast = NewNode;
 	Length++;
+}
+
+void StudentLine::CreateFirstNode(const string& Name, const string& Uni)
+{
+	if (Length != 0)					// should NOT happen at all
+	{
+		cout << "ERROR! WRONG SIZE!\n";
+		return;
+	}
+
+	Node* NewNode = new Node(Name, Uni);
+	pFirst = NewNode;
+	pLast = NewNode;
+	Length++;
+
+	return;
 }

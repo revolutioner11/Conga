@@ -50,6 +50,7 @@ private:
 	void Free();
 	bool isCompatable(const string& FrontUni, const string& BachUni) const;
 	void AddAfter(const string& Name, const string& Uni);
+	void CreateFirstNode(const string& Name, const string& Uni);
 
 private:
 	Node* pFirst;
