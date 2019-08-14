@@ -21,9 +21,15 @@
     <ClCompile Include="StudentLine.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Conga.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StudentLine.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Conga.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

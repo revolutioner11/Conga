@@ -115,10 +115,12 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Conga.cpp" />
     <ClCompile Include="main.cpp" />
     <ClCompile Include="StudentLine.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Conga.h" />
     <ClInclude Include="StudentLine.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
