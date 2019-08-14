@@ -1,6 +1,7 @@
 #pragma once
 
 #include <string>
+#include <iostream>
 
 using namespace std;
 
@@ -36,13 +37,19 @@ public:
 
 	bool operator==(const StudentLine& Other) const;
 	bool operator!=(const StudentLine& Other) const;
-	void Merge(const StudentLine& Other);
-	void AddEnd(const string& Name, const string& Uni);				// This will be our APPEND
-	void RemoveFirst();
-	void RemoveLast();
-	StudentLine Remove(const string& Name, const string& Uni);
+
+public:
+	void Merge(const StudentLine& Other);							// MERGE
+	void AddEnd(const string& Name, const string& Uni);				// APPEND
+	void RemoveFirst();												// REMOVE FIRST
+	void RemoveLast();												// REMOVE LAST
+	StudentLine Remove(const string& Name, const string& Uni);		// REMOVE
+	void Print() const;
+
 private:
 	void Free();
+	bool isCompatable(const string& FrontUni, const string& BachUni) const;
+	void AddAfter(const string& Name, const string& Uni);
 
 private:
 	Node* pFirst;

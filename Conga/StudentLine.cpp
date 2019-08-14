@@ -3,11 +3,14 @@
 
 StudentLine::StudentLine()
 {
+	Length = 0;
 	Free();
 }
 
 StudentLine::StudentLine(const StudentLine& Other)
+
 {
+	Length = 0;
 	Free();
 	Merge(Other);
 }
@@ -28,7 +31,26 @@ StudentLine::~StudentLine()
 
 bool StudentLine::operator==(const StudentLine& Other) const
 {
-	return false;
+	if (Length != Other.Length)
+	{
+		return false;
+	}
+
+	Node* pThis = pFirst;
+	Node* pOther = Other.pFirst;
+
+	for (size_t i = 1; i <= Length; ++i)
+	{
+		if (pThis->Name != pOther->Name 
+			|| pThis->Uni != pOther->Uni)
+		{
+			return false;
+		}
+		pThis = pThis->pNext;
+		pOther = pOther->pNext;
+	}
+
+	return true;
 }
 
 bool StudentLine::operator!=(const StudentLine& Other) const
@@ -41,11 +63,17 @@ void StudentLine::Merge(const StudentLine& Other)
 	if (Other.Length == 0)
 		return;
 
+	if (Length > 0 && !isCompatable(pLast->Uni, Other.pFirst->Uni))
+	{
+		cout << "Action Denied! Incompatible people!\n";
+		return;
+	}
+
 	Node* pCurrent = Other.pFirst;
 
 	for (size_t i = 1; i <= Other.Length; ++i)
 	{
-		AddEnd(pCurrent->Name, pCurrent->Uni);
+		AddAfter(pCurrent->Name, pCurrent->Uni);
 		pCurrent = pCurrent->pNext;
 		Length++;
 	}
@@ -53,10 +81,14 @@ void StudentLine::Merge(const StudentLine& Other)
 
 void StudentLine::AddEnd(const string& Name, const string& Uni)
 {
-	Node* NewNode = new Node(Name, Uni, pLast);
-	pLast->pNext = NewNode;
-	pLast = NewNode;
-	Length++;
+	if (isCompatable(pLast->Uni, Uni))
+	{
+		AddAfter(Name, Uni);
+	}
+	else
+	{
+		cout << "Action Denied! Incompatible people!\n";
+	}
 }
 
    //Node* NewNode = new Node(Name, Uni, pLast);
@@ -64,9 +96,18 @@ void StudentLine::AddEnd(const string& Name, const string& Uni)
  //pFirst = NewNode;
 //Length++;
 
-
+// Must check if the line is null -> to be removed
 void StudentLine::RemoveFirst()
 {
+	if (Length == 1)
+	{
+		pFirst->Free();
+		pFirst = nullptr;
+		pLast = nullptr;
+
+		return;
+	}
+
 	Node* NewNode = pFirst;
 	pFirst->pNext->pPrev = nullptr;
 	pFirst = pFirst->pNext;
@@ -74,8 +115,18 @@ void StudentLine::RemoveFirst()
 	Length--;
 }
 
+// Must check if the line is null -> to be removed
 void StudentLine::RemoveLast()
 {
+	if (Length == 1)
+	{
+		pFirst->Free();
+		pFirst = nullptr;
+		pLast = nullptr;
+
+		return;
+	}
+
 	Node* NewNode = pLast;
 	pLast->pPrev->pNext = nullptr;
 	pLast = pLast->pPrev;
@@ -127,6 +178,25 @@ StudentLine StudentLine::Remove(const string& Name, const string& Uni)
 	return NewLine;
 }
 
+void StudentLine::Print() const
+{
+	if (Length == 0)	// should not happen!?
+	{
+		cout << "empty line";
+		return;
+	}
+
+	Node* pCurrent = pFirst;
+
+	for (size_t i = 1; i <= Length; ++i)
+	{
+		cout << "(" << pCurrent->Name << ", " << pCurrent->Uni << ")";
+		if (i != Length)
+			cout << " - ";
+		pCurrent = pCurrent->pNext;
+	}
+}
+
 void StudentLine::Free()
 {
 	while (Length != 0)
@@ -136,4 +206,29 @@ void StudentLine::Free()
 
 	pFirst = nullptr;
 	pLast = nullptr;
+}
+
+bool StudentLine::isCompatable(const string& FrontUni, const string& BackUni) const
+{
+	if ((FrontUni == BackUni)
+		|| (FrontUni == "fmi" && BackUni == "unss")
+		|| (FrontUni == "unss" && BackUni == "tu")
+		|| (FrontUni == "tu" && BackUni == "fmi"))
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+// this function does not do compatability check
+// because MERGE need only the first check
+void StudentLine::AddAfter(const string& Name, const string& Uni)
+{
+	Node* NewNode = new Node(Name, Uni, pLast);
+	pLast->pNext = NewNode;
+	pLast = NewNode;
+	Length++;
 }
