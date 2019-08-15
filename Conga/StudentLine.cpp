@@ -8,7 +8,6 @@ StudentLine::StudentLine()
 }
 
 StudentLine::StudentLine(const StudentLine& Other)
-
 {
 	Length = 0;
 	Free();
@@ -17,7 +16,7 @@ StudentLine::StudentLine(const StudentLine& Other)
 
 StudentLine& StudentLine::operator=(const StudentLine& Other)
 {
-	if (*this!=Other)
+	if (*this != Other)
 	{
 		Free();
 		Merge(Other);
@@ -200,7 +199,6 @@ void StudentLine::Print() const
 			cout << " - ";
 		pCurrent = pCurrent->pNext;
 	}
-	cout << endl;
 }
 
 void StudentLine::Free()
@@ -260,3 +258,4 @@ void StudentLine::CreateFirstNode(const string& Name, const string& Uni)
 
 	return;
 }
+
