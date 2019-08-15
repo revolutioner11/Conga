@@ -43,11 +43,12 @@ public:
 	void AddEnd(const string& Name, const string& Uni);				// APPEND
 	void RemoveFirst();												// REMOVE FIRST
 	void RemoveLast();												// REMOVE LAST
-	StudentLine Remove(const string& Name, const string& Uni);		// REMOVE
+	StudentLine Remove(const string& Name);							// REMOVE
 	void Print() const;
+	bool isEmpty() const;
+	void Free();
 
 private:
-	void Free();
 	bool isCompatable(const string& FrontUni, const string& BachUni) const;
 	void AddAfter(const string& Name, const string& Uni);
 	void CreateFirstNode(const string& Name, const string& Uni);

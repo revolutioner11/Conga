@@ -137,14 +137,14 @@ void StudentLine::RemoveLast()
 }
 
 // Must check if the returned and the given lines are null -> to be removed
-StudentLine StudentLine::Remove(const string& Name, const string& Uni)
+StudentLine StudentLine::Remove(const string& Name)
 {
 	Node* pCurrent = pFirst;
 	StudentLine NewLine;
 	size_t i = 1;
 	while (i <= Length)
 	{
-		if (pCurrent->Name == Name && pCurrent->Uni == Uni)
+		if (pCurrent->Name == Name)
 		{
 			if (i == 1)
 			{
@@ -199,6 +199,11 @@ void StudentLine::Print() const
 			cout << " - ";
 		pCurrent = pCurrent->pNext;
 	}
+}
+
+bool StudentLine::isEmpty() const
+{
+	return !Length;
 }
 
 void StudentLine::Free()
