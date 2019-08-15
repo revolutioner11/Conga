@@ -125,8 +125,8 @@ void Conga::Copy(const Conga& Other)
 
 void Conga::Create()
 {
-	Allocated = 4;
-	Taken = 0;
+	Allocated = 1;
+	Taken = 1;
 	Lines = new StudentLine[Allocated];
 }
 
