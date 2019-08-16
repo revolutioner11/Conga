@@ -15,7 +15,7 @@ public:
 	bool operator!=(const Conga& Other) const;
 
 public:
-	void Do(string Command);
+	void Do();
 
 private:
 	Conga(size_t Allocated, size_t Taken);
@@ -28,8 +28,11 @@ private:
 	void ShiftBack(const size_t EmptyIndex);
 	void CheckAllocated();
 	void CheckCapacity();
+	bool isLegal(const size_t& Index) const;
+private:
+	string DeleteFirstWord(string& Sentence) const;
 
-public:
+private:
 	void Append(const string& Name, const string& Uni, const size_t Index);
 	void RemoveLast(const size_t Index);
 	void RemoveFirst(const size_t Index);

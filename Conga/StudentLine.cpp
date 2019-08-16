@@ -59,15 +59,15 @@ bool StudentLine::operator!=(const StudentLine& Other) const
 	return !(*this==Other);
 }
 
-void StudentLine::Merge(const StudentLine& Other)
+bool StudentLine::Merge(const StudentLine& Other)
 {
 	if (Other.Length == 0)
-		return;
+		return true;
 
 	if (Length > 0 && !isCompatable(pLast->Uni, Other.pFirst->Uni))
 	{
 		cout << "Action Denied! Incompatible people!\n";
-		return;
+		return false;
 	}
 
 	Node* pCurrent = Other.pFirst;
@@ -77,6 +77,7 @@ void StudentLine::Merge(const StudentLine& Other)
 		AddAfter(pCurrent->Name, pCurrent->Uni);
 		pCurrent = pCurrent->pNext;
 	}
+	return true;
 }
 
 void StudentLine::AddEnd(const string& Name, const string& Uni)

@@ -39,7 +39,7 @@ public:
 	bool operator!=(const StudentLine& Other) const;
 
 public:
-	void Merge(const StudentLine& Other);							// MERGE
+	bool Merge(const StudentLine& Other);							// MERGE
 	void AddEnd(const string& Name, const string& Uni);				// APPEND
 	void RemoveFirst();												// REMOVE FIRST
 	void RemoveLast();												// REMOVE LAST

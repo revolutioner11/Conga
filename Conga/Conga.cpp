@@ -42,9 +42,55 @@ bool Conga::operator!=(const Conga& Other) const
 	return !(*this == Other);
 }
 
-void Conga::Do(string Command)
+void Conga::Do()
 {
-	// TO DO: take commands
+	string Command, FuncName, Name, Uni, Index1, Index2;
+
+	do
+	{
+		getline(cin, Command, '\n');
+		
+		FuncName = DeleteFirstWord(Command);
+		
+		if (FuncName == "append")
+		{
+			Name = DeleteFirstWord(Command);
+			Uni = DeleteFirstWord(Command);
+			Index1 = DeleteFirstWord(Command);
+			Append(Name, Uni, stoul(Index1));
+			continue;
+		}
+		if (FuncName == "removeLast")
+		{
+			RemoveLast(stoul(Command));
+			continue;
+		}
+		if (FuncName == "removeFirst")
+		{
+			RemoveFirst(stoul(Command));
+			continue;
+		}
+		if (FuncName == "remove")
+		{
+			Name = DeleteFirstWord(Command);
+			Index1 = DeleteFirstWord(Command);
+			Remove(Name, stoul(Index1));
+			continue;
+		}
+		if (FuncName == "merge")
+		{
+			Index1 = DeleteFirstWord(Command);
+			Index2 = DeleteFirstWord(Command);
+			Merge(stoul(Index1), stoul(Index2));
+			continue;
+		}
+		if (FuncName == "print")
+		{
+			Print();
+			continue;
+		}
+
+	} while (FuncName != "quit");	
 }
 
 Conga::Conga(size_t Allocated, size_t Taken)
@@ -66,40 +112,55 @@ void Conga::Print() const
 
 void Conga::Append(const string& Name, const string& Uni, const size_t Index)
 {
-	Lines[Index].AddEnd(Name, Uni);
+	if (isLegal(Index))
+		Lines[Index].AddEnd(Name, Uni);
 }
 
 void Conga::RemoveLast(const size_t Index)
 {
-	Lines[Index].RemoveLast();
+	if (isLegal(Index))
+	{
+		Lines[Index].RemoveLast();
 
-	if (Lines[Index].isEmpty())
-		RemoveEmptyLine(Index);
+		if (Lines[Index].isEmpty())
+			RemoveEmptyLine(Index);
+	}
 }
 
 void Conga::RemoveFirst(const size_t Index)
 {
-	Lines[Index].RemoveFirst();
+	if (isLegal(Index))
+	{
+		Lines[Index].RemoveFirst();
 
-	if (Lines[Index].isEmpty())
-		RemoveEmptyLine(Index);
+		if (Lines[Index].isEmpty())
+			RemoveEmptyLine(Index);
+	}
 }
 
 void Conga::Remove(const string& Name, const size_t Index)
 {
-	StudentLine NewLine = Lines[Index].Remove(Name);
+	if (isLegal(Index))
+	{
+		StudentLine NewLine = Lines[Index].Remove(Name);
 
-	if (NewLine.isEmpty())
-		return;
-	else
-		AddLine(NewLine);
+		if (NewLine.isEmpty())
+			return;
+		else
+			AddLine(NewLine);
+	}
 }
 
 void Conga::Merge(const size_t Index1, const size_t Index2)
 {
-	Lines[Index1].Merge(Lines[Index2]);
-	Lines[Index2].Free();
-	RemoveEmptyLine(Index2);
+	if (isLegal(Index1) && isLegal(Index2))
+	{
+		if (Lines[Index1].Merge(Lines[Index2]))
+		{
+			Lines[Index2].Free();
+			RemoveEmptyLine(Index2);
+		}
+	}
 }
 
 void Conga::Free()
@@ -132,8 +193,11 @@ void Conga::Create()
 
 void Conga::RemoveEmptyLine(const size_t Index)
 {
-	ShiftBack(Index);
-	CheckAllocated();
+	if (isLegal(Index))
+	{
+		ShiftBack(Index);
+		CheckAllocated();
+	}
 }
 
 void Conga::AddLine(const StudentLine& Line)
@@ -184,4 +248,25 @@ void Conga::CheckCapacity()
 	}
 
 	return;
+}
+
+bool Conga::isLegal(const size_t& Index) const
+{
+	if (Index < Taken)
+	{
+		return true;
+	}
+	else
+	{
+		cout << "Line number " << Index << " does not exist!\n";
+		return false;
+	}
+}
+
+string Conga::DeleteFirstWord(string& Sentence) const
+{
+	size_t Index = Sentence.find_first_of(' ');
+	string Word = Sentence.substr(0, Index);
+	Sentence.erase(0, Index + 1);
+	return Word;
 }
